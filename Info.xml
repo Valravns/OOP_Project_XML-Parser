@@ -6,12 +6,12 @@
            <address>USA</address>
             <position>Head of Marketing</position>
         </person>
-        <person id="2" gender="male" age="51">
-           <name>Georgi Ivanov</name>
+        <person id="2" gender="female" age="51">
+           <name>Gergana Ivanova</name>
            <address>Bulgaria</address>
             <position>Account Manager</position>
         </person>
-        <person id="3" gender="male" age="25">
+        <person id="3" gender="female" age="25">
             <name>Noah Keller</name>
             <address>Switzerland</address>
             <position>Graphic Designer</position>
@@ -31,8 +31,8 @@
             <address>France</address>
             <position>HR Manager</position>
         </person>
-        <person id="7" gender="male" age="29">
-            <name>Gabriel Dubois</name>
+        <person id="7" gender="female" age="29">
+            <name>Gabriela Dubois</name>
             <address>France</address>
             <position>QA Manager</position>
         </person>
