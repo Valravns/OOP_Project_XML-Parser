@@ -1,0 +1,54 @@
+<company>
+    <people>
+        <person id="0" gender="male" age="32">
+            <name>John Smith</name>
+            <address>USA</address>
+            <position>Head of Marketing</position>
+        </person>
+        <person id="2" gender="female" age="51">
+            <name>Gergana Ivanova</name>
+            <address>Bulgaria</address>
+            <position>Account Manager</position>
+        </person>
+        <person id="3" gender="female" age="25">
+            <name>Noah Keller</name>
+            <address>Switzerland</address>
+            <position>Graphic Designer</position>
+        </person>
+        <person id="4" gender="male" age="19">
+            <name>Michael Williams</name>
+            <address>USA</address>
+            <position>Junior Buyer</position>
+        </person>
+        <person id="5" gender="male" age="22">
+            <name>Jonas Kahnwald</name>
+            <address>Germany</address>
+            <position>Buyer Assistant</position>
+        </person>
+        <person id="6" gender="male" age="26">
+            <name>Louis Bernand</name>
+            <address>France</address>
+            <position>HR Manager</position>
+        </person>
+        <person id="7" gender="female" age="29">
+            <name>Gabriela Dubois</name>
+            <address>France</address>
+            <position>QA Manager</position>
+        </person>
+        <person id="8" gender="male" age="31">
+            <name>Piotr Lewandowski</name>
+            <address>Poland</address>
+            <position>Sales Manager</position>
+        </person>
+        <person id="9" gender="male" age="34">
+            <name>Igor Volkov</name>
+            <address>Russia</address>
+            <position>Stylist</position>
+        </person>
+        <person id="10" gender="male" age="45">
+            <name>Veselin Topalov</name>
+            <address>Bulgaria</address>
+            <position>Customer Service Manager</position>
+        </person>
+    </people>
+</company>

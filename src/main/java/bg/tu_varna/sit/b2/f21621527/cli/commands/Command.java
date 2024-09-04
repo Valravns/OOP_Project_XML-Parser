@@ -1,5 +1,7 @@
 package bg.tu_varna.sit.b2.f21621527.cli.commands;
 
+import java.util.Arrays;
+
 public enum Command {
     OPEN ("open <file>", "Opens <file> and reads its contents."),
     CLOSE ("close", "Closes the current file."),
@@ -25,6 +27,7 @@ public enum Command {
         this.syntax = syntax;
         this.description = description;
     }
+
 
     public String getSyntax() {
         return syntax;

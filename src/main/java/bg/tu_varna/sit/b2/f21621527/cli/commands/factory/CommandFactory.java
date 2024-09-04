@@ -1,6 +1,7 @@
 package bg.tu_varna.sit.b2.f21621527.cli.commands.factory;
 
 import bg.tu_varna.sit.b2.f21621527.cli.commands.Command;
+import bg.tu_varna.sit.b2.f21621527.cli.commands.config.AppData;
 import bg.tu_varna.sit.b2.f21621527.cli.commands.utility.*;
 import bg.tu_varna.sit.b2.f21621527.cli.commands.xml.*;
 import bg.tu_varna.sit.b2.f21621527.contracts.ExecutableCommand;
@@ -28,20 +29,36 @@ public class CommandFactory {
                     throw new RuntimeException("invalid number of args");
                 }
 
+                if (AppData.getInstance().isFileOpened()) {
+                    throw new RuntimeException("file is opened");
+                }
+
                 executableCommand = new Open(args);
             }
 
             case CLOSE -> {
+                if (!AppData.getInstance().isFileOpened()) {
+                    throw new RuntimeException("no file to be closed");
+                }
+
                 executableCommand = new Close();
             }
 
             case SAVE -> {
+                if (!AppData.getInstance().isFileOpened()) {
+                    throw new RuntimeException("no file to be closed");
+                }
+
                 executableCommand = new Save();
             }
 
             case SAVEAS -> {
                 if (args.size() != 1) {
                     throw new RuntimeException("invalid number of args");
+                }
+
+                if (!AppData.getInstance().isFileOpened()) {
+                    throw new RuntimeException("no file to be closed");
                 }
 
                 executableCommand = new SaveAs(args);
@@ -57,12 +74,20 @@ public class CommandFactory {
 
 
             case PRINT -> {
+                if (!AppData.getInstance().isFileOpened()) {
+                    throw new RuntimeException("no file to be closed");
+                }
+
                 executableCommand = new Print();
             }
 
             case SELECT -> {
                 if (args.size() != 2) {
                     throw new RuntimeException("invalid number of args");
+                }
+
+                if (!AppData.getInstance().isFileOpened()) {
+                    throw new RuntimeException("no file to be closed");
                 }
 
                 executableCommand = new Select(args);
@@ -73,12 +98,20 @@ public class CommandFactory {
                     throw new RuntimeException("invalid number of args");
                 }
 
+                if (!AppData.getInstance().isFileOpened()) {
+                    throw new RuntimeException("no file to be closed");
+                }
+
                 executableCommand = new Set(args);
             }
 
             case CHILDREN -> {
                 if (args.size() != 1) {
                     throw new RuntimeException("invalid number of args");
+                }
+
+                if (!AppData.getInstance().isFileOpened()) {
+                    throw new RuntimeException("no file to be closed");
                 }
 
                 executableCommand = new Children(args);
@@ -88,12 +121,21 @@ public class CommandFactory {
                 if (args.size() != 2) {
                     throw new RuntimeException("invalid number of args");
                 }
+
+                if (!AppData.getInstance().isFileOpened()) {
+                    throw new RuntimeException("no file to be closed");
+                }
+
                 executableCommand = new Child(args);
             }
 
             case TEXT -> {
                 if (args.size() != 1) {
                     throw new RuntimeException("invalid number of args");
+                }
+
+                if (!AppData.getInstance().isFileOpened()) {
+                    throw new RuntimeException("no file to be closed");
                 }
 
                 executableCommand = new Text(args);
@@ -104,6 +146,10 @@ public class CommandFactory {
                     throw new RuntimeException("invalid number of args");
                 }
 
+                if (!AppData.getInstance().isFileOpened()) {
+                    throw new RuntimeException("no file to be closed");
+                }
+
                 executableCommand = new Delete(args);
             }
 
@@ -112,12 +158,20 @@ public class CommandFactory {
                     throw new RuntimeException("invalid number of args");
                 }
 
+                if (!AppData.getInstance().isFileOpened()) {
+                    throw new RuntimeException("no file to be closed");
+                }
+
                 executableCommand = new NewChild(args);
             }
 
             case XPATH -> {
                 if (args.size() != 2) {
                     throw new RuntimeException("invalid number of args");
+                }
+
+                if (!AppData.getInstance().isFileOpened()) {
+                    throw new RuntimeException("no file to be closed");
                 }
 
                 executableCommand = new XPath(args);
