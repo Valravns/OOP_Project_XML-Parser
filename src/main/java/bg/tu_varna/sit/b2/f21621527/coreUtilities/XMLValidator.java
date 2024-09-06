@@ -3,7 +3,6 @@ package bg.tu_varna.sit.b2.f21621527.coreUtilities;
 import bg.tu_varna.sit.b2.f21621527.contracts.Validator;
 
 import java.io.*;
-import java.nio.file.Files;
 import java.util.Stack;
 
 public class XMLValidator implements Validator {
@@ -24,12 +23,10 @@ public class XMLValidator implements Validator {
             while ((line = reader.readLine()) != null) {
                 line = line.trim();
 
-                // Skip processing for lines without tags
                 if (!line.contains("<") || !line.contains(">")) {
                     continue;
                 }
 
-                // Extract tags
                 while (line.contains("<") && line.contains(">")) {
                     int startIndex = line.indexOf('<');
                     int endIndex = line.indexOf('>');
@@ -41,26 +38,24 @@ public class XMLValidator implements Validator {
                     if (startIndex >= 0 && endIndex > startIndex) {
                         String tag = line.substring(startIndex + 1, endIndex);
 
-                        // Check if it's a closing tag
                         if (tag.startsWith("/")) {
                             tag = tag.substring(1);
                             if (tagStack.isEmpty() || !tagStack.peek().equals(tag)) {
                                 throw new RuntimeException("Mismatched closing tag: " + tag);
                             }
                             tagStack.pop();
-                        } else if (!tag.endsWith("/")) { // Ignore self-closing tags
-                            // Assume it's an opening tag
+                        } else if (!tag.endsWith("/")) {
                             tagStack.push(tag);
                         }
-
                         line = line.substring(endIndex + 1);
+                        if(line.contains("/" + tag)) {
+                            tagStack.pop();
+                        }
                     } else {
                         break;
                     }
                 }
             }
-
-            // If the stack is not empty, it means some tags were not closed
             if (!tagStack.isEmpty()) {
                 throw new RuntimeException("Unclosed tags: " + tagStack);
             }

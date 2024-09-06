@@ -9,13 +9,14 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Stack;
 
 public class XMLParser implements Parser {
     private static final XMLParser instance = new XMLParser();
     private final Validator validator = XMLValidator.getInstance();
     //private final String xmlRegex = "<([a-zA-Z0-9_:-]+)(\\s+[a-zA-Z0-9_:-]+=\"[^\"]*\")*\\s*>[^<]*</\\1>|<([a-zA-Z0-9_:-]+)(\\s+[a-zA-Z0-9_:-]+=\"[^\"]*\")*\\s*/?>";
-
     private XMLParser() {}
 
     public static XMLParser getInstance() {
@@ -38,54 +39,59 @@ public class XMLParser implements Parser {
             while ((line = reader.readLine()) != null) {
                 line = line.trim();
 
-                int startIndex = line.indexOf('<');
-                int endIndex = line.indexOf('>');
+                int startIndex = line.indexOf("<");
+                int endIndex;
+                if(line.contains("/>"))
+                    endIndex = line.indexOf("/>");
+                else
+                    endIndex = line.indexOf(">");
 
                 if (startIndex >= 0 && endIndex > startIndex) {
                     String tag = line.substring(startIndex + 1, endIndex).trim();
 
-                    // Handle attributes (like id)
-                    id = null;
+                    Map<String, String> tagAttributes = new HashMap<>();
                     if (tag.contains(" ")) {
                         String[] parts = tag.split(" ");
                         tag = parts[0];
                         for (int i = 1; i < parts.length; i++) {
                             if (parts[i].startsWith("id=")) {
-                                id = parts[i].substring(4, parts[i].length() - 1); // Extract id value
+                                id = parts[i].substring(4, parts[i].length() - 1);
+                            } else {
+                                String[] atr = parts[i].split("=");
+                                String k = atr[0].replace("\"", "");
+                                String v = atr[1].replace("\"", "");
+                                tagAttributes.put(k,v);
                             }
                         }
                     }
 
-                    // Check if it's a closing tag
-                    if (tag.startsWith("/")) {
-                        tag = tag.substring(1);
-                        Node node = nodeStack.pop();
+                    Node node = new Node(id,tag);
+                    node.setAttributes(tagAttributes);
 
-                        // Check for root assignment
-                        if (nodeStack.isEmpty()) {
-                            root = node;
-                        } else {
-                            nodeStack.peek().addChild(node);
-                        }
-                    } else if (line.endsWith("/>")) { // Self-closing tag
-                        Node node = new Node(tag, id, value);
-                        if (!nodeStack.isEmpty()) {
-                            nodeStack.peek().addChild(node);
-                        }
-                    } else { // Opening tag
-                        Node node = new Node(tag, id, value);
+                    if (nodeStack.isEmpty()) {
+                        root = node;
+                    } else if(!tag.startsWith("/")){
+                        nodeStack.peek().addChild(node);
+                    }
+
+                    if (tag.startsWith("/")) {
+                        node = nodeStack.pop();
+
+                    } else {
                         nodeStack.push(node);
                     }
-                } else if (!nodeStack.isEmpty()) {
-                    // Handle text content between tags
-                    Node current = nodeStack.peek();
-                    current.setValue(current.getValue() + line);
+
+                    if(line.contains("/" + tag)) {
+                        node.setText(line.substring(endIndex+1, line.indexOf("</" + tag)));
+                        node = nodeStack.pop();
+                    }
+
                 }
             }
         } catch (IOException e) {
             throw new RuntimeException(String.format("Error parsing XML file: %s", file.getAbsolutePath()));
         }
 
-        return null;
+        return new XMLDocument(root);
     }
 }

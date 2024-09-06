@@ -46,7 +46,7 @@ public class CommandFactory {
 
             case SAVE -> {
                 if (!AppData.getInstance().isFileOpened()) {
-                    throw new RuntimeException("no file to be closed");
+                    throw new RuntimeException("no file to be saved");
                 }
 
                 executableCommand = new Save();
@@ -58,7 +58,7 @@ public class CommandFactory {
                 }
 
                 if (!AppData.getInstance().isFileOpened()) {
-                    throw new RuntimeException("no file to be closed");
+                    throw new RuntimeException("no file to be saved");
                 }
 
                 executableCommand = new SaveAs(args);
@@ -75,7 +75,7 @@ public class CommandFactory {
 
             case PRINT -> {
                 if (!AppData.getInstance().isFileOpened()) {
-                    throw new RuntimeException("no file to be closed");
+                    throw new RuntimeException("no file to be printed");
                 }
 
                 executableCommand = new Print();
@@ -87,7 +87,7 @@ public class CommandFactory {
                 }
 
                 if (!AppData.getInstance().isFileOpened()) {
-                    throw new RuntimeException("no file to be closed");
+                    throw new RuntimeException("no file to be selected");
                 }
 
                 executableCommand = new Select(args);
@@ -99,7 +99,7 @@ public class CommandFactory {
                 }
 
                 if (!AppData.getInstance().isFileOpened()) {
-                    throw new RuntimeException("no file to be closed");
+                    throw new RuntimeException("no file to be set");
                 }
 
                 executableCommand = new Set(args);
@@ -111,7 +111,7 @@ public class CommandFactory {
                 }
 
                 if (!AppData.getInstance().isFileOpened()) {
-                    throw new RuntimeException("no file to be closed");
+                    throw new RuntimeException("no file to be searched for children");
                 }
 
                 executableCommand = new Children(args);
@@ -123,7 +123,7 @@ public class CommandFactory {
                 }
 
                 if (!AppData.getInstance().isFileOpened()) {
-                    throw new RuntimeException("no file to be closed");
+                    throw new RuntimeException("no file to be searched for a child");
                 }
 
                 executableCommand = new Child(args);
@@ -135,7 +135,7 @@ public class CommandFactory {
                 }
 
                 if (!AppData.getInstance().isFileOpened()) {
-                    throw new RuntimeException("no file to be closed");
+                    throw new RuntimeException("no file to be searched for text");
                 }
 
                 executableCommand = new Text(args);
@@ -147,7 +147,7 @@ public class CommandFactory {
                 }
 
                 if (!AppData.getInstance().isFileOpened()) {
-                    throw new RuntimeException("no file to be closed");
+                    throw new RuntimeException("no file to be deleted");
                 }
 
                 executableCommand = new Delete(args);
@@ -159,7 +159,7 @@ public class CommandFactory {
                 }
 
                 if (!AppData.getInstance().isFileOpened()) {
-                    throw new RuntimeException("no file to be closed");
+                    throw new RuntimeException("no file to be appended");
                 }
 
                 executableCommand = new NewChild(args);
@@ -171,7 +171,7 @@ public class CommandFactory {
                 }
 
                 if (!AppData.getInstance().isFileOpened()) {
-                    throw new RuntimeException("no file to be closed");
+                    throw new RuntimeException("no file to be performed xpath on");
                 }
 
                 executableCommand = new XPath(args);

@@ -1,54 +1,54 @@
-<company>
-    <people>
-        <person id="0" gender="male" age="32">
-            <name>John Smith</name>
-            <address>USA</address>
-            <position>Head of Marketing</position>
+<company id="0">
+    <people id="1">
+        <person id="2" gender="male" age="32">
+            <name id="20">John Smith</name>
+            <address id="21">USA</address>
+            <position id="22">Head of Marketing</position>
         </person>
-        <person id="2" gender="female" age="51">
-            <name>Gergana Ivanova</name>
-            <address>Bulgaria</address>
-            <position>Account Manager</position>
+        <person id="3" gender="female" age="51">
+            <name id="30">Gergana Ivanova</name>
+            <address id="31">Bulgaria</address>
+            <position id="32">Account Manager</position>
         </person>
-        <person id="3" gender="female" age="25">
-            <name>Noah Keller</name>
-            <address>Switzerland</address>
-            <position>Graphic Designer</position>
+        <person id="4" gender="female" age="25">
+            <name id="40">Noah Keller</name>
+            <address id="41">Switzerland</address>
+            <position id="42">Graphic Designer</position>
         </person>
-        <person id="4" gender="male" age="19">
-            <name>Michael Williams</name>
-            <address>USA</address>
-            <position>Junior Buyer</position>
+        <person id="5" gender="male" age="19">
+            <name id="50">Michael Williams</name>
+            <address id="51">USA</address>
+            <position id="52">Junior Buyer</position>
         </person>
-        <person id="5" gender="male" age="22">
-            <name>Jonas Kahnwald</name>
-            <address>Germany</address>
-            <position>Buyer Assistant</position>
+        <person id="6" gender="male" age="22">
+            <name id="60">Jonas Kahnwald</name>
+            <address id="61">Germany</address>
+            <position id="62">Buyer Assistant</position>
         </person>
-        <person id="6" gender="male" age="26">
-            <name>Louis Bernand</name>
-            <address>France</address>
-            <position>HR Manager</position>
+        <person id="7" gender="male" age="26">
+            <name id="70">Louis Bernand</name>
+            <address id="71">France</address>
+            <position id="72">HR Manager</position>
         </person>
-        <person id="7" gender="female" age="29">
-            <name>Gabriela Dubois</name>
-            <address>France</address>
-            <position>QA Manager</position>
+        <person id="8" gender="female" age="29">
+            <name id="80">Gabriela Dubois</name>
+            <address id="81">France</address>
+            <position id="82">QA Manager</position>
         </person>
-        <person id="8" gender="male" age="31">
-            <name>Piotr Lewandowski</name>
-            <address>Poland</address>
-            <position>Sales Manager</position>
+        <person id="9" gender="male" age="31">
+            <name id="90">Piotr Lewandowski</name>
+            <address id="91">Poland</address>
+            <position id="92">Sales Manager</position>
         </person>
-        <person id="9" gender="male" age="34">
-            <name>Igor Volkov</name>
-            <address>Russia</address>
-            <position>Stylist</position>
+        <person id="10" gender="male" age="34">
+            <name id="100">Igor Volkov</name>
+            <address id="101">Russia</address>
+            <position id="102">Stylist</position>
         </person>
-        <person id="10" gender="male" age="45">
-            <name>Veselin Topalov</name>
-            <address>Bulgaria</address>
-            <position>Customer Service Manager</position>
+        <person id="11" gender="male" age="45">
+            <name id="110">Veselin Topalov</name>
+            <address id="111">Bulgaria</address>
+            <position id="112">Customer Service Manager</position>
         </person>
     </people>
 </company>

@@ -2,34 +2,35 @@ package bg.tu_varna.sit.b2.f21621527.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Node {
     private String id;
-    private final String key;
-    private String value;
+    private String tag;
+    private String text;
+    private Map<String, String> attributes;
 
     private final List<Node> children = new ArrayList<>();
 
-    public Node(String id, String key, String value) {
-        this.id = id;
-        this.key = key;
-        this.value = value;
+    public Node(String id, String tag) {
+        this.id=id;
+        this.tag=tag;
     }
 
     public String getId() {
         return id;
     }
 
-    public String getKey() {
-        return key;
+    public String getText() {
+        return text;
     }
 
-    public String getValue() {
-        return value;
+    public void setText(String text) {
+        this.text = text;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public List<Node> getChildren() {
@@ -42,5 +43,31 @@ public class Node {
 
     public boolean removeChild(Node child) {
         return children.remove(child);
+    }
+
+    @Override
+    public String toString() {
+        children.forEach(System.out::println);
+        return "Node{" +
+                ", id='" + id + '\'' +
+                ", attributes='" + attributes + '\'' +
+                ", children=" + children +
+                '}';
+    }
+
+    public Map<String, String> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(Map<String, String> attributes) {
+        this.attributes = attributes;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 }
