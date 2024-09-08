@@ -7,6 +7,7 @@ public class Close implements ExecutableCommand {
     @Override
     public void execute() {
         System.out.println("Closing file");
-        AppData.getInstance().unload();
+        AppData.getInstance().closeFile();
+        AppData.getInstance().resetDocument();
     }
 }

@@ -2,6 +2,7 @@ package bg.tu_varna.sit.b2.f21621527.coreUtilities;
 
 import bg.tu_varna.sit.b2.f21621527.contracts.Parser;
 import bg.tu_varna.sit.b2.f21621527.contracts.Validator;
+import bg.tu_varna.sit.b2.f21621527.exceptions.utilities.InvalidParsingException;
 import bg.tu_varna.sit.b2.f21621527.models.Node;
 import bg.tu_varna.sit.b2.f21621527.models.XMLDocument;
 
@@ -26,13 +27,10 @@ public class XMLParser implements Parser {
     @Override
     public XMLDocument parse(File file) {
         Node root = null;
-
-        if (!validator.validate(file)) {
-            throw new RuntimeException(String.format("Error validating XML file: %s", file.getAbsolutePath()));
-        }
+        validator.validate(file);
 
         Stack<Node> nodeStack = new Stack<>();
-        String id = "", key = "", value = "";
+        String id = "";
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
@@ -51,16 +49,16 @@ public class XMLParser implements Parser {
 
                     Map<String, String> tagAttributes = new HashMap<>();
                     if (tag.contains(" ")) {
-                        String[] parts = tag.split(" ");
-                        tag = parts[0];
-                        for (int i = 1; i < parts.length; i++) {
-                            if (parts[i].startsWith("id=")) {
-                                id = parts[i].substring(4, parts[i].length() - 1);
+                        String[] tagContent = tag.split(" ");
+                        tag = tagContent[0];
+                        for (int i = 1; i < tagContent.length; i++) {
+                            if (tagContent[i].startsWith("id=")) {
+                                id = tagContent[i].substring(4, tagContent[i].length() - 1);
                             } else {
-                                String[] atr = parts[i].split("=");
-                                String k = atr[0].replace("\"", "");
-                                String v = atr[1].replace("\"", "");
-                                tagAttributes.put(k,v);
+                                String[] atr = tagContent[i].split("=");
+                                String key = atr[0].replace("\"", "");
+                                String value = atr[1].replace("\"", "");
+                                tagAttributes.put(key,value);
                             }
                         }
                     }
@@ -89,7 +87,7 @@ public class XMLParser implements Parser {
                 }
             }
         } catch (IOException e) {
-            throw new RuntimeException(String.format("Error parsing XML file: %s", file.getAbsolutePath()));
+            throw new InvalidParsingException();
         }
 
         return new XMLDocument(root);

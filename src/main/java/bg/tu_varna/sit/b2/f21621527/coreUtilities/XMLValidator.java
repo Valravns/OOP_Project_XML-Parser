@@ -1,6 +1,10 @@
 package bg.tu_varna.sit.b2.f21621527.coreUtilities;
 
 import bg.tu_varna.sit.b2.f21621527.contracts.Validator;
+import bg.tu_varna.sit.b2.f21621527.exceptions.files.XMLFileNotFoundException;
+import bg.tu_varna.sit.b2.f21621527.exceptions.utilities.InvalidXMLFileException;
+import bg.tu_varna.sit.b2.f21621527.exceptions.utilities.MismatchedClosingTagException;
+import bg.tu_varna.sit.b2.f21621527.exceptions.utilities.UnclosedTagsException;
 
 import java.io.*;
 import java.util.Stack;
@@ -41,7 +45,7 @@ public class XMLValidator implements Validator {
                         if (tag.startsWith("/")) {
                             tag = tag.substring(1);
                             if (tagStack.isEmpty() || !tagStack.peek().equals(tag)) {
-                                throw new RuntimeException("Mismatched closing tag: " + tag);
+                                throw new MismatchedClosingTagException("Mismatched closing tag: " + tag);
                             }
                             tagStack.pop();
                         } else if (!tag.endsWith("/")) {
@@ -49,7 +53,18 @@ public class XMLValidator implements Validator {
                         }
                         line = line.substring(endIndex + 1);
                         if(line.contains("/" + tag)) {
-                            tagStack.pop();
+                            try {
+                                int closeStartIndex = line.indexOf("</");
+                                int closeFirstEndIndex = line.indexOf('>');
+                                int closeSecondEndIndex = line.indexOf('>', closeFirstEndIndex + 1);
+                                tag = line.substring(closeStartIndex + 2, closeSecondEndIndex);
+                                if (tagStack.isEmpty() || !tagStack.peek().equals(tag)) {
+                                    throw new MismatchedClosingTagException("Mismatched closing tag: " + tag);
+                                }
+                                tagStack.pop();
+                            } catch(IndexOutOfBoundsException e) {
+                                throw new MismatchedClosingTagException("Mismatched closing tag: " + tag);
+                            }
                         }
                     } else {
                         break;
@@ -57,18 +72,16 @@ public class XMLValidator implements Validator {
                 }
             }
             if (!tagStack.isEmpty()) {
-                throw new RuntimeException("Unclosed tags: " + tagStack);
+                throw new UnclosedTagsException("Unclosed tags: " + tagStack);
             }
 
             System.out.println("XML is well-formed!");
             return true;
 
         } catch (IOException e) {
-            System.err.println("Error reading the file: " + e.getMessage());
-            return false;
+            throw new XMLFileNotFoundException();
         } catch (RuntimeException e) {
-            System.err.println("XML is not valid: " + e.getMessage());
-            return false;
+            throw new InvalidXMLFileException("XML is not valid: " + e.getMessage());
         }
     }
 }

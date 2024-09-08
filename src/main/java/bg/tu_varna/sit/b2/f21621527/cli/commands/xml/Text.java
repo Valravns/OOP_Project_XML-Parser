@@ -1,6 +1,7 @@
 package bg.tu_varna.sit.b2.f21621527.cli.commands.xml;
 
 import bg.tu_varna.sit.b2.f21621527.cli.commands.config.AppData;
+import bg.tu_varna.sit.b2.f21621527.coreUtilities.XMLTraverse;
 import bg.tu_varna.sit.b2.f21621527.contracts.ExecutableCommand;
 import bg.tu_varna.sit.b2.f21621527.models.Node;
 
@@ -28,22 +29,11 @@ public class Text implements ExecutableCommand {
         }
     }
     private String findText(Node node, String id) {
-        if (node == null) {
+        Node searchNode = XMLTraverse.findNode(node, id);
+        if(searchNode == null) {
             return null;
         }
-
-        if (id.equals(node.getId())) {
-            found = true;
-            return node.getText();
-        }
-
-        for (Node child : node.getChildren()) {
-            String text = findText(child, id);
-            if (text != null) {
-                return text;
-            }
-        }
-
-        return null;
+        found = true;
+        return searchNode.getText();
     }
 }

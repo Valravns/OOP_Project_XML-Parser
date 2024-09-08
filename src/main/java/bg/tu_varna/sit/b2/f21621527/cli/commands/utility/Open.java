@@ -2,8 +2,11 @@ package bg.tu_varna.sit.b2.f21621527.cli.commands.utility;
 
 import bg.tu_varna.sit.b2.f21621527.cli.commands.config.AppData;
 import bg.tu_varna.sit.b2.f21621527.contracts.ExecutableCommand;
+import bg.tu_varna.sit.b2.f21621527.exceptions.files.XMLFileNotFoundException;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 public class Open implements ExecutableCommand {

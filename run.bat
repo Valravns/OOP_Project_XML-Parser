@@ -1,2 +1,2 @@
 @echo off
-java -jar out\artifacts\XMLParser_jar\XMLParser.jar
+java -jar out\artifacts\OOP1_Project_XMLParser_jar\OOP1_Project-XMLParser.jar

@@ -1,6 +1,7 @@
 package bg.tu_varna.sit.b2.f21621527.cli.commands.xml;
 
 import bg.tu_varna.sit.b2.f21621527.cli.commands.config.AppData;
+import bg.tu_varna.sit.b2.f21621527.coreUtilities.XMLTraverse;
 import bg.tu_varna.sit.b2.f21621527.contracts.ExecutableCommand;
 import bg.tu_varna.sit.b2.f21621527.models.Node;
 
@@ -30,24 +31,14 @@ public class Select implements ExecutableCommand {
         }
     }
 
-    public String findValue(Node node, String id, String key) {
-        if (node == null) {
+    private String findValue(Node node, String id, String key) {
+        Node searchNode = XMLTraverse.findNode(node, id);
+        if(searchNode == null) {
             return null;
         }
+        found = true;
+        Map<String, String> attributes = searchNode.getAttributes();
+        return attributes.getOrDefault(key, null);
 
-        if (id.equals(node.getId())) {
-            found = true;
-            Map<String, String> attributes = node.getAttributes();
-            return attributes.getOrDefault(key, null);
-        }
-
-        for (Node child : node.getChildren()) {
-            String value = findValue(child, id, key);
-            if (value != null) {
-                return value;
-            }
-        }
-
-        return null;
     }
 }

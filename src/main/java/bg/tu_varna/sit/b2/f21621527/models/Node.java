@@ -48,11 +48,7 @@ public class Node {
     @Override
     public String toString() {
         children.forEach(System.out::println);
-        return "Node{" +
-                ", id='" + id + '\'' +
-                ", attributes='" + attributes + '\'' +
-                ", children=" + children +
-                '}';
+        return "<" + tag + " id=" + id + " " + attributes + "> Text: " + text;
     }
 
     public Map<String, String> getAttributes() {

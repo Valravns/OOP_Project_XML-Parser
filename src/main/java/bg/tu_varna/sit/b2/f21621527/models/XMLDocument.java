@@ -10,8 +10,4 @@ public class XMLDocument {
     public Node getParent() {
         return parent;
     }
-
-//    public Node findNode(String value) {
-//
-//    }
 }

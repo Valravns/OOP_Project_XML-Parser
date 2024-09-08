@@ -11,48 +11,56 @@ public class Print implements ExecutableCommand {
     @Override
     public void execute() {
         Node root = AppData.getInstance().getOpenedDocument().getParent();
-        printXML(root, 0);
+        System.out.println(printXML(root, 0));
     }
-    private void printXML(Node node, int indent) {
+
+    public String printXML(Node node, int indent) {
+        StringBuilder XMLBuilder = new StringBuilder();
+        buildXML(node, indent, XMLBuilder);
+        return XMLBuilder.toString();
+    }
+
+    private void buildXML(Node node, int indent, StringBuilder XMLBuilder) {
         if (node == null) {
             return;
         }
-        printIndent(indent);
-        System.out.print("<" + node.getTag() + " id=\"" + node.getId() + "\"");
+
+        appendIndent(indent, XMLBuilder);
+        XMLBuilder.append("<").append(node.getTag()).append(" id=\"").append(node.getId()).append("\"");
 
         if (node.getAttributes() != null) {
             for (Map.Entry<String, String> attribute : node.getAttributes().entrySet()) {
                 String k = attribute.getKey();
                 String v = attribute.getValue();
-                System.out.print(" " + k + "=\"" + v + "\"");
+                XMLBuilder.append(" ").append(k).append("=\"").append(v).append("\"");
             }
         }
 
-        System.out.print(">");
+        XMLBuilder.append(">");
 
         if (node.getText() != null) {
-            System.out.print(node.getText());
+            XMLBuilder.append(node.getText());
         }
 
         if (node.getChildren().isEmpty() && node.getText() == null) {
-            System.out.println("</" + node.getTag() + ">");
+            XMLBuilder.append("</").append(node.getTag()).append(">\n");
             return;
         }
 
         if (!node.getChildren().isEmpty()) {
-            System.out.println();
+            XMLBuilder.append("\n");
             for (Node child : node.getChildren()) {
-                printXML(child, indent + 1);
+                buildXML(child, indent + 1, XMLBuilder);
             }
-            printIndent(indent);
+            appendIndent(indent, XMLBuilder);
         }
-        System.out.println("</" + node.getTag() + ">");
 
+        XMLBuilder.append("</").append(node.getTag()).append(">\n");
     }
-    private void printIndent(int indentLevel) {
 
+    private void appendIndent(int indentLevel, StringBuilder XMLBuilder) {
         for (int i = 0; i < indentLevel; i++) {
-            System.out.print("   ");
+            XMLBuilder.append("   ");
         }
     }
 }

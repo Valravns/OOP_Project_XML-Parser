@@ -47,10 +47,7 @@ public class CLI {
 
     private void processCommand(String rawCommand) {
         this.command = Command.getCommand(rawCommand.split(" ")[0]);
-        List<String> tempArgs = Arrays.stream(
-                rawCommand.split(" ")
-                )
-                .toList();
+        List<String> tempArgs = Arrays.stream(rawCommand.split(" ")).toList();
         if (tempArgs.size() == 1) {
             return;
         }
