@@ -9,11 +9,16 @@ public class Node {
     private String tag;
     private String text;
     private Map<String, String> attributes;
+    private Node parent;
 
     private final List<Node> children = new ArrayList<>();
 
     public Node(String id, String tag) {
         this.id=id;
+        this.tag=tag;
+    }
+
+    public Node(String tag) {
         this.tag=tag;
     }
 
@@ -38,6 +43,7 @@ public class Node {
     }
 
     public boolean addChild(Node child) {
+        child.setParent(this);
         return children.add(child);
     }
 
@@ -65,5 +71,13 @@ public class Node {
 
     public void setTag(String tag) {
         this.tag = tag;
+    }
+
+    public Node getParent() {
+        return parent;
+    }
+
+    public void setParent(Node parent) {
+        this.parent = parent;
     }
 }

@@ -83,6 +83,10 @@ public class XMLParser implements Parser {
                         node.setText(line.substring(endIndex+1, line.indexOf("</" + tag)));
                         node = nodeStack.pop();
                     }
+                    if(!line.contains(" id=")) {
+                        IDHandler idHandler = new IDHandler();
+                        idHandler.uniqueIdCheck(node);
+                    }
 
                 }
             }

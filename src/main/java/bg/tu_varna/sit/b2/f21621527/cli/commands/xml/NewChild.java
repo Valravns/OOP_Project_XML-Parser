@@ -1,6 +1,7 @@
 package bg.tu_varna.sit.b2.f21621527.cli.commands.xml;
 
 import bg.tu_varna.sit.b2.f21621527.cli.commands.config.AppData;
+import bg.tu_varna.sit.b2.f21621527.coreUtilities.IDHandler;
 import bg.tu_varna.sit.b2.f21621527.coreUtilities.XMLTraverse;
 import bg.tu_varna.sit.b2.f21621527.contracts.ExecutableCommand;
 import bg.tu_varna.sit.b2.f21621527.models.Node;
@@ -34,7 +35,9 @@ public class NewChild implements ExecutableCommand {
             return;
         }
         found = true;
-        Node createdChild = new Node("350",name);
+        Node createdChild = new Node(name);
+        IDHandler newChildIDHandler = new IDHandler();
+        newChildIDHandler.uniqueIdCheck(createdChild);
         searchNode.addChild(createdChild);
     }
 }

@@ -31,7 +31,7 @@ public class XMLValidator implements Validator {
                     continue;
                 }
 
-                while (line.contains("<") && line.contains(">")) {
+                if (line.contains("<") && line.contains(">")) {
                     int startIndex = line.indexOf('<');
                     int endIndex = line.indexOf('>');
 
@@ -56,8 +56,10 @@ public class XMLValidator implements Validator {
                             try {
                                 int closeStartIndex = line.indexOf("</");
                                 int closeFirstEndIndex = line.indexOf('>');
-                                int closeSecondEndIndex = line.indexOf('>', closeFirstEndIndex + 1);
-                                tag = line.substring(closeStartIndex + 2, closeSecondEndIndex);
+                                if(line.contains("id=")) {
+                                    closeFirstEndIndex = line.indexOf('>', closeFirstEndIndex + 1);
+                                }
+                                tag = line.substring(closeStartIndex + 2, closeFirstEndIndex);
                                 if (tagStack.isEmpty() || !tagStack.peek().equals(tag)) {
                                     throw new MismatchedClosingTagException("Mismatched closing tag: " + tag);
                                 }
